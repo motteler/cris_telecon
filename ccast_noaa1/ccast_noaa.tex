@@ -1,0 +1,321 @@
+\documentclass[11pt]{beamer}
+% \usetheme{Boadilla}
+  \usetheme{default}
+
+\input{crisdefs.tex}
+
+\title{ccast and noaa \\
+  relative fov response}
+\author{H.~E.~Motteler, L.~L.~Strow}
+\institute{
+  UMBC Atmospheric Spectroscopy Lab \\
+  Joint Center for Earth Systems Technology \\
+}
+\date{\today}
+\begin{document}
+
+%----------- slide --------------------------------------------------%
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{test methods}
+
+\begin{itemize}
+
+  \item start with \ccast\ and \noaa\ high res data from 6--8 Dec 2014
+
+  \item take the average and standard deviation of \for\ 15 and 16
+    independently for each \fov, and compare these values with the
+    values for \fov\ 5
+
+  \item results shown here are for 32,186 \ccast\ and 32,120 {\noaa}
+    descending {\for}s
+
+  \item as a precaution, {\for}s where any LW channel was greater than
+    320K were discarded
+
+  \item the intent is to show variation among {\fov}s, as might arise
+    from varying nonlinearity or artifacts of the self-apodization
+    correction
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast LW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_LW_avg_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa LW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_LW_avg_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast LW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_LW_dif_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa LW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_LW_dif_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fovs 1, 2, and 5}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_LW_fig_1.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_LW_fig_2.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa relative fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_LW_fig_3.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{LW discussion}
+
+\begin{itemize}
+
+  \item \ccast\ and \noaa\ are generally in good agreement
+
+  \item in the LW, \ccast\ is around $0.02$K colder than \noaa
+
+  \item in the previous slide, ``ccast minus noaa relative'' is \\
+    (ccast all \fov s $-$ \fov\ 5) $-$ (noaa all \fov s $-$ \fov\ 5)
+
+  \item the \ccast\ nonlinearity correction uses the UW a2 values
+
+  \item the slightly greater difference for the corner {\fov}s at the
+    low end of the band may be due to different processing filters
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast MW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_MW_avg_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa MW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_MW_avg_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast MW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_MW_dif_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa MW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_MW_dif_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fovs 1, 2, and 5}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_MW_fig_1.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fov groups}
+
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_MW_fig_2.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast MW standard deviation}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_MW_std_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{MW discussion}
+
+\begin{itemize}
+
+  \item \fov\ 7 is the least linear, and only partially corrected
+    for with the \ccast\ first order adjustment
+
+  \item the \noaa\ variation in \fov\ response is much greater than
+    {\ccast}
+
+  \item this may be due to problems with the nonlinearity correction
+
+  \item a normalized frequency domain representation of the numeric
+    filter needs a scaling factor to match the original nonlinearity
+    measurements.  We used 1.6047 for LW, 0.9826 for MW, and 0.2046
+    for SW
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast SW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_SW_avg_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa SW mean}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_SW_avg_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast SW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_SW_dif_2014_340-342_hr.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa SW fov groups}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/noaa_SW_dif_2014_340-342.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fovs 1, 2, and 5}
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_SW_fig_1.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast minus noaa fov groups}
+
+
+\begin{center}
+  \includegraphics[scale=0.7]{figures/ccast_noaa_SW_fig_2.pdf}
+\end{center}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{SW discussion}
+
+\begin{itemize}
+
+  \item \ccast\ and \noaa\ are generally in good agreement
+
+  \item residuals are significantly larger than for the LW band
+
+  \item residuals and \noaa\ vs \ccast\ differences are generally
+    greatest for the coldest lines and regions
+
+  \item \fov\ 7 minus \fov\ 5 is significantly greater than for other
+    \fov s at 2255 and 2359 \wnum, for both \ccast\ and \noaa
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{conclusions}
+
+\begin{itemize}
+
+  \item there is significant convergence in the \ccast\ and
+    \noaa\ processing
+
+  \item variation due to nonlinearity, especially for the MW band, is
+    significantly greater than some of the more subtle effects we have
+    been considering recently
+
+  \item note again that these results are relative to \fov\ 5 or are
+    direct \noaa\ vs \ccast\ comparisons, and not comparisons with
+    with expected observed radiance from model data or radiance from
+    other sounders
+
+  \vspace{6mm}
+
+  \item supplementary slides
+    \begin{itemize}
+      \item a comparison of standard deviations
+      \item \ccast\ ILS and calibration equations
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\input{support.tex}
+\end{document}
+
