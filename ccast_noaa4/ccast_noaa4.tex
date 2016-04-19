@@ -167,10 +167,12 @@
 
 \begin{itemize}
 
-  \item the {\noaa} double difference is \[(\mbox{\small noaa obs} -
-    \mbox{\small noaa resp}) - (\mbox{\small noaa apodized obs} -
-    \mbox{\small noaa apodized resp})\]  
-    the {\ccast} double differences are analogous
+  \item the first double difference is 
+    \[(\mbox{\small noaa obs} - \mbox{\small resp calc}) - 
+       (\mbox{\small hamming noaa obs} - 
+        \mbox{\small hamming resp calc})\]  
+
+  \item the other double differences are analogous
 
   \item {\noaa} with responsivity and ccast with flat reference
     truth are similar, with {\ccast} slightly worse at the low end
