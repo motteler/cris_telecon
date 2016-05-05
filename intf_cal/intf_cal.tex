@@ -1,0 +1,96 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{placeins}
+
+\input{crisdefs.tex}
+
+\title{A Note on Interferometric Calibration \\
+\vspace{3mm}
+{****} DRAFT {****} \\
+}
+
+\author{H.~E.~Motteler and L.~L.~Strow \\
+  \\
+  UMBC Atmospheric Spectroscopy Lab \\
+  Joint Center for Earth Systems Technology \\
+}
+
+\date{\today}
+\begin{document}
+
+\maketitle
+
+We derive the UW definition of reference truth convolved with
+responsivity.  Note that this does not prove the definition is
+``correct'' in any particular way.  The definition is just an
+approximation to a more accurate representation.  It may suggest why
+the UW definition is easier to use as a specification for some forms
+of the calibration equation.
+
+\vspace{2mm}
+Calibration of the on-axis optical path of a Michaelson
+interferometer can be represented as
+
+\begin{equation}\label{cal:1}
+  \rcal = \rIT  \frac{\ES - \SP}{\IT - \SP}
+\end{equation} 
+
+\noindent
+where $\rcal$ is calibrated radiances, $\rIT$ is expected radiance
+from the internal calibration target, and $\ES$, $\IT$, and $\SP$
+are uncalibrated spectra for earth scene, internal calibration
+target, and space looks, respectively.  We can approximate
+instrument responsivity as
+
+\begin{equation}\label{resp}
+  \rho = \frac{\IT - \SP}{\rIT}
+\end{equation} 
+
+\noindent
+Substituting (\ref{resp}) in (\ref{cal:1}) gives
+
+\begin{equation}\label{cal:2}
+  \rcal =\frac{\ES - \SP}{\rho}
+\end{equation} 
+
+We can represent $\ES$, $\IT$, and $\SP$ as $\ES = F \rho \, \rES$,
+$\IT = F \rho \, \rIT$, and $\SP= F \rho \, \rSP$, where $\rES$,
+$\rIT$, and $\rSP$ are high resolution approximations to the true
+radiances, $F$ is resampling from the high resolution to $dv = 1/
+(2\, \opd)$, and $\opd$ is the optical path difference.
+Substituting this into (\ref{cal:2}) gives
+
+\begin{equation}\label{cal:3}
+  \rcal = \frac{F\rho \, \rES - F\rho \, \rSP}{\rho}
+\end{equation} 
+
+\noindent
+The space look radiances are very small in comparison with earth
+scene radiances.  If we drop the space look term in (\ref{cal:3}) 
+we have
+
+\begin{equation}
+  \rcal \approx \rresp = \frac{F\rho \, \rES}{\rho}
+\end{equation} 
+
+\noindent
+This is the UW definition of ``reference truth with responsivity''.
+
+A more conventional and user-friendly definition of reference truth
+is
+\begin{equation}
+  \rflat =  F \rES
+\end{equation} 
+
+\noindent
+In practice we find the \umbc\ \ccast\ reference calibration
+equation (a ``ratio first'' form) has smaller residuals when
+compared with $\rflat$, while the \noaa\ 4 algorithm (an
+``$\SA^{-1}$ first'' form) has smaller residuals with $\rresp$.  
+It seems to us the proper focus for calibration algorithm
+development should be minimizing residuals in comparison with
+$\rflat$.
+
+
+\end{document}
+
