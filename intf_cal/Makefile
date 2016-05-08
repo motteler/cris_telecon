@@ -4,6 +4,7 @@ intf_cal: intf_cal.pdf
 
 intf_cal.pdf: intf_cal.tex crisdefs.tex Makefile
 	pdflatex intf_cal.tex -interaction nonstopmode && \
+	pdflatex intf_cal.tex -interaction nonstopmode && \
 	pdflatex intf_cal.tex -interaction nonstopmode || \
 	rm intf_cal.pdf 2> /dev/null || true
 
