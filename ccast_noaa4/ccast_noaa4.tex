@@ -27,17 +27,18 @@
 
 \begin{itemize}
 
-  \item we compare the {\umbc} {\ccast} implementations of our
+  \item we compare the {\umbc} implementations of our {\ccast}
     reference and the \noaa~4 calibration algorithms on extended
     resolution data
 
   \item this allows for identical \ils\ and processing details---the
     only difference in tests is the form of the calibration equation
 
-  \item we show results for both clear matchups and \fov~5 relative
-    tests.  For matchups we compare the {\ccast} algorithm with flat
-    reference truth and \noaa~4 with reference truth convolved with
-    instrument responsivity
+  \item we show results for clear matchups, comparing the {\ccast}
+    algorithm with flat reference truth and \noaa~4 with reference
+    truth convolved with instrument responsivity
+
+  \item the respective residuals are very similar
 
 \end{itemize}
 
@@ -60,8 +61,8 @@
     pointwise to the kcarta radiances, these are convolved to the
     user grid, and then divided pointwise by inverse responsivity
 
-  \item relative tests are with data averaged over the three day
-    test period, 18-20 Jan 2016
+% \item relative tests are with data averaged over the three day
+%   test period, 18-20 Jan 2016
     
   \item all test are done with periodic sinc wrapping at the sensor
     grid, cosine apodization of the extended res points, the old a2
@@ -72,9 +73,23 @@
 \end{frame}
 %----------- slide --------------------------------------------------%
 \begin{frame}
+\frametitle{responsivity vs flat reference truth}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/resp_flat_diff.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
 \frametitle{obs minus calc overview}
 \begin{center}
   \includegraphics[scale=0.5]{figures/cal_summary.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{obs and calc residuals}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/obs_calc_diffs.pdf}
 \end{center}
 \end{frame}
 %----------- slide --------------------------------------------------%
@@ -121,17 +136,26 @@
 \end{frame}
 %----------- slide --------------------------------------------------%
 \begin{frame}
-\frametitle{obs minus calc summary}
+\frametitle{obs minus calc SW detail}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/cal_SW_detail.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{obs minus calc notes}
 
 \begin{itemize}
 
   \item {\ccast} minus flat and {\noaa} minus resp residuals are
-    similar, significantly more so than for regular resolution
-    processing
+    similar, significantly more so than for earlier comparisons
 
-  \item the spectral intervals shown here here are regions where the
-    differences between the algorithms was greatest for our 15 Aug
-    2015 regular high resolution comparison
+  \item {\ccast} minus {\noaa} is similar to the responsivity
+    residual
+
+% \item the spectral intervals shown here here are regions where the
+%   differences between the algorithms were greatest for our 15 Aug
+%   2015 regular high resolution comparison
 
   \item below 680 \wn\ we see {\ccast} does slightly better for the
     side and corner FOVS, while {\noaa} is slightly better for FOV 5.  
@@ -147,12 +171,43 @@
 \end{frame}
 %----------- slide --------------------------------------------------%
 \begin{frame}
+\frametitle{double differences}
+
+\begin{itemize}
+
+  \item the double difference subtracts a smoothed bias, leaving the
+    high frequency components of the residual.
+
+  \item noaa default test, with responsivity \\
+    $(\mbox{\small noaa obs} - \mbox{\small resp calc}) - 
+       (\mbox{\small hamming noaa obs} - 
+        \mbox{\small hamming resp calc})$
+
+  \item ccast default test, with flat passband \\
+    $(\mbox{\small ccast obs} - \mbox{\small flat calc}) - 
+       (\mbox{\small hamming ccast obs} - 
+        \mbox{\small hamming flat calc})$
+
+  \item noaa alternate test, with flat passband \\
+    $(\mbox{\small noaa obs} - \mbox{\small flat calc}) - 
+       (\mbox{\small hamming noaa obs} - 
+        \mbox{\small hamming flat calc})$  
+
+  \item ccast alternate test, with responsivity \\
+    $(\mbox{\small ccast obs} - \mbox{\small resp calc}) - 
+       (\mbox{\small hamming ccast obs} - 
+        \mbox{\small hamming resp calc})$
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
 \frametitle{noaa resp and ccast flat double diffs}
 \begin{center}
   \includegraphics[scale=0.5]{figures/cal_ddif_1.pdf}
 \end{center}
 \end{frame}
-
 %----------- slide --------------------------------------------------%
 \begin{frame}
 \frametitle{noaa flat and ccast resp double diffs}
@@ -160,81 +215,57 @@
   \includegraphics[scale=0.5]{figures/cal_ddif_2.pdf}
 \end{center}
 \end{frame}
-
 %----------- slide --------------------------------------------------%
 \begin{frame}
-\frametitle{double difference summary}
+\frametitle{noaa resp and ccast flat LW band}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/ddif_LW_band.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa resp and ccast flat LW zoom}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/ddif_LW_zoom.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa resp and ccast flat MW band}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/ddif_MW_band.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{noaa resp and ccast flat MW zoom}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/ddif_MW_zoom.pdf}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{double difference notes}
 
 \begin{itemize}
 
-  \item the first double difference is 
-    \[(\mbox{\small noaa obs} - \mbox{\small resp calc}) - 
-       (\mbox{\small hamming noaa obs} - 
-        \mbox{\small hamming resp calc})\]  
+  \item double differences do not show a significant difference
+    between the algorithms compared with their respective reference
+    truths
 
-  \item the other double differences are analogous
+% \item the {\ccast} minus flat and {\noaa} minus resp double
+%   differences are very similar
 
-  \item {\noaa} with responsivity and ccast with flat reference
-    truth are similar, with {\ccast} slightly worse at the low end
-    of the MW but slightly better in MW above around 1600 cm-1
+  \item LW residuals are quite similar for both the full band and
+    the selected zoom
 
-  \item comparing {\noaa} with flat reference truth and {\ccast}
-    with responsivity, we see both do slightly worse overall than
-    when compared with their default reference truths.
+  \item MW residuals are also quite similar, with {\ccast} maybe
+    slightly better above around 1600 cm-1.  
 
-\end{itemize}
-
-\end{frame}
-
-\end{document}
-
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{relative test overview}
-\begin{center}
-  \includegraphics[scale=0.5]{figures/rel_summary.pdf}
-\end{center}
-\end{frame}
-
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{noaa relative double diffs}
-\begin{center}
-  \includegraphics[scale=0.5]{figures/rel_noaa_ddif.pdf}
-\end{center}
-\end{frame}
-
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{ccast relative double diffs}
-\begin{center}
-  \includegraphics[scale=0.5]{figures/rel_ccast_ddif.pdf}
-\end{center}
-\end{frame}
-
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{relative test summary}
-
-\begin{itemize}
-
-  \item the overview is the difference from FOV 5 of the means of
-    FOR 15 and 16 taken together
-
-  \item the double differences here are \[(\mbox{\small FOR 15} -
-    \mbox{\small FOR 16}) - (\mbox{\small apodized FOR 15} -
-    \mbox{\small apodized FOR 16})\]
-
-  \item relative test results are generally consistent with the obs
-    minus calc tests shown earlier
-
-  \item {\ccast} is worse in the LW and slightly better in the MW
-    above around 1600 cm-1.  Some of the LW difference may be due to
-    the \fov~5 differences we saw in the obs minus calc tests
-
-  \item the relative double differences are small in comparison with
-    other residuals shown here, with {\noaa} a little better overall
-    but {\ccast} significantly better for side FOVs in the MW
+  \item swapping reference truth---comparing {\noaa} with flat
+    reference truth and {\ccast} with responsivity, we see both do
+    slightly worse overall than when compared with their default
+    reference truths
 
 \end{itemize}
 
@@ -245,73 +276,26 @@
 
 \begin{itemize}
 
-  \item we have seen a significant convergence in calibration
-    algorithm results and performance
+  \item with the switch to extended res, we have seen a significant
+    convergence in calibration algorithm performance 
 
-  \item overall the {\noaa} algorithm works slightly better with
-    responsivity and {\ccast} better without
+%   when algorithms
+%   are compared with their respective reference truths
 
-  \item remaining differences between the {\ccast} and {\noaa}
-    calibration equations are small
+  \item the {\noaa} ``SA-1 first'' algorithm does slightly better
+    when compared with reference truth convolved with responsivity,
+    while the {\ccast} ``ratio first'' algorithm does slightly
+    better when compared with reference truth convolved with a flat
+    passband
 
-  \item {\ccast} flat is slightly worse at the LW end of the LW
-    band, and slightly better in the MW above around 1600 cm-1
+  \item this may be because responsivity cancels out more completely
+    in the ratio-first method
 
-  \item differences after Hamming apodization are very small
+  \item because reference truth convolved with a flat passband is
+    a more conventional and non instrument-specific standard, the
+    ccast algorithm (or perhaps some related ratio-first method) may
+    be preferable
 
-  \item although the {\noaa} algorithm has a few more steps, this
-    has no significant effect on runtime
-
-\end{itemize}
-
-\end{frame}
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{context for SDR reference truth choices}
-
-\begin{itemize}
-
-  \item {\ccast} flat output close to true sinc \ils
-
-  \item {\ccast} flat RTA simulation requires 3 bandpass filters \\
-    (12 parameters)
-
-  \item {\noaa} resp RTA simulation requires full responsivity curves
-    (roughly 1700 parameters)
-
-
-  \item {\noaa} resp radiance climate record may be affected if
-    responsivity varies from instrument to instrument or changes for
-    a particular instrument
-
-  \item {\cris} flat radiances insensitive to filter characteristic
-
-  \item LLS believe is will be hard to get international community to
-    use responsivity in the long time frame!  Debatable
-
-  \item Impact of cal eqn and reference truth choices: Later Talk
-
-\end{itemize}
-
-\end{frame}
-%----------- slide --------------------------------------------------%
-\begin{frame}
-\frametitle{ccast calibration equation}
-
-\[\rES = F \cdot \rIT \cdot f \cdot \SA^{-1}\cdot f \cdot 
-         \frac{\ES - \SPmean}{\ITmean - \SPmean} \]
-
-\begin{itemize}
-  \item $\rES$ is calibrated earth-scene radiance at the user grid
-  \item $F$ is Fourier interpolation from sensor to user grid
-  \item $\rIT$ is expected ICT radiance at the sensor grid
-  \item $f$ is a raised-cosine bandpass filter with wings at or just
-    inside instrument responsivity
-  \item $\SA$ is from a periodic sinc ILS wrapping at the sensor
-    grid
-  \item $\ES$, $\ITmean$ and $\SPmean$ are corrected for
-    nonlinearity
-  \item $\ITmean$ and $\SPmean$ are averages over 9 scans
 \end{itemize}
 
 \end{frame}
