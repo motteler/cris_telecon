@@ -6,8 +6,8 @@
 
 \title{cris extended resolution \\
        calibration algorithm comparisons \\
-\vspace{4mm}
-{****} DRAFT {****} \\
+% \vspace{4mm}
+% {****} DRAFT {****} \\
 }
 \author{H.~E.~Motteler, L.~L.~Strow}
 \institute{
@@ -49,9 +49,9 @@
 
 \begin{itemize}
 
-  \item for tests with calculated radiance we start with 3782 clear
-    matchups from ccast granule SDR\_d20160120\_t0304487 and
-    calculate upwelling radiances with kcarta at a 0.0025 cm-1 grid
+  \item we start with 3782 clear matchups from ccast granule
+    SDR\_d20160120\_t0304487 and calculate upwelling radiances with
+    kcarta at a 0.0025 cm-1 grid
 
   \item for the ``flat'' tests the ccast processing filters are
     applied pointwise and the result is convolved to the {\cris}
@@ -178,6 +178,7 @@
   \item the double difference subtracts a smoothed bias, leaving the
     high frequency components of the residual.
 
+  \vspace{3mm}
   \item noaa default test, with responsivity \\
     $(\mbox{\small noaa obs} - \mbox{\small resp calc}) - 
        (\mbox{\small hamming noaa obs} - 
@@ -291,14 +292,81 @@
   \item this may be because responsivity cancels out more completely
     in the ratio-first method
 
-  \item because reference truth convolved with a flat passband is
-    a more conventional and non instrument-specific standard, the
-    ccast algorithm (or perhaps some related ratio-first method) may
-    be preferable
+  \item because reference truth convolved with a flat passband is a
+    more conventional and non instrument-specific standard, the
+    ccast algorithm, or some similar ratio-first method, may be
+    preferable
 
 \end{itemize}
 
 \end{frame}
 %----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{ccast calibration equations}
+
+% \begin{equation}
+%   \rES = F \cdot \rIT \cdot f \cdot \SA^{-1}\cdot f \cdot 
+%          \frac{\ES - \SPmean}{\ITmean - \SPmean}
+% \end{equation}
+
+\begin{center}
+{\ccast} reference equation
+\end{center}
+\vspace{-2mm}
+\begin{equation}
+  \rESuser = F \cdot \rITsensor \cdot \fcos \cdot \SA^{-1}\cdot \fcos 
+         \cdot \frac{\Delta\ES}{\Delta\IT}
+\end{equation}
+
+\begin{equation}
+  \rESuser = F \cdot \fcos \cdot \SA^{-1}\cdot \fcos \cdot \rITfov 
+         \cdot \frac{\Delta\ES}{\Delta\IT}
+\end{equation}
+
+\vspace{3mm}
+\begin{center}
+{\noaa} algorithm 4
+\end{center}
+\vspace{-2mm}
+\begin{equation}
+  \rESuser = \rITuser \cdot
+         \frac{F \cdot \fatbd \cdot \SA^{-1}\cdot \fatbd \cdot 
+                  (\frac{\Delta\ES}{\Delta\IT}) \cdot {|\Delta\IT|}}
+              {F \cdot \fatbd \cdot \SA^{-1}\cdot \fatbd \cdot {|\Delta\IT|}}
+\end{equation}
+
+\vspace{3mm}
+\[ \Delta\ES = \ES - \SPmean, \hspace{4mm}
+   \Delta\IT = \ITmean - \SPmean \]
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{calibration equation parameters}
+
+\vspace{-8mm}
+\begin{align*}
+  \ES &= \mbox{\small NLC}(\fir^{-1}(\ES_0)) \\
+  \ITmean &= \mbox{\small NLC}(\fir^{-1}(\langle\IT_0\rangle)) \\
+  \SPmean &= \mbox{\small NLC}(\fir^{-1}(\langle\SP_0\rangle)) \\
+\end{align*}
+\vspace{-8mm}
+
+{\small NLC} is the ATBD non-linearity correction and $\ES_0$,
+$\IT_0$, and $\SP_0$ are uncorrected earth-scene, ICT, and space
+spectra.  $\langle\IT_0\rangle$ and $\langle\SP_0\rangle$ are moving
+averages, by default over 9 scans.  $\fir^{-1}$ is pointwise division
+by the spectral form of the numeric filter
+
+\begin{itemize}
+  \item $\rITuser$ is expected ICT radiance at the user grid
+  \item $\rITsensor$ is expected ICT radiance at the sensor grid
+  \item $\rITfov = \SA \cdot \rITsensor$, expected uncorrected ICT
+    radiance 
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+
 \end{document}
 
