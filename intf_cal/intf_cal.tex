@@ -22,16 +22,150 @@
 
 \maketitle
 
-We derive the UW definition of reference truth convolved with
-responsivity.  Note that this does not prove the definition is
-``correct'' in any particular way, just that it follows from the
-assumption that responsivity does not commute with resampling for
-earth-scene looks, that is, that $F\rho\,\rES \ne \rho\,F\,\rES$.
-where $\rES$ is a high resolution approximation to earth-scene
-radiance, $\rho$ is instrument responsivity, and $F$ is resampling
-from the high resolution to the sensor grid.  The derivation may
-suggest why the UW definition works better as a specification for
-some forms of the calibration equation.
+We consider the definition of reference truth for measurements made
+with a Michelson interferometer, taking into account relatively
+small (or possibly non-existant) effects such as filter position and
+potential mathematical artifacts.  The immediate application is
+defining reference truth and a corresponding calibration equation
+for the for the {\cris} instrument.
+
+% We want to be careful with definitions to separate mathematical
+% and physical artifacts in subsequent derivations.
+
+% pedantic because looking for small effects
+
+\section{Michelson Interferometer}
+
+\begin{figure}
+\begin{center}
+  \includegraphics[scale=0.5]{figures/mich_filt2.pdf}
+\caption{Michelson interferometer with filters}
+\label{intf1}
+\end{center}
+\end{figure}
+
+Figure \ref{intf1} shows a basic Michelson interferometer.  Let
+$\rin(\nu)$ be incoming radiance as a function of frequency $\nu$,
+$\delta$ mirror displacement, and $\rout(\nu, \delta)$ radiance on
+the path to the detector.  In practice the signal from the detector
+is the product of incoming radiance, beam-splitter efficiency, and
+detector responsivity.  But suppose for the moment that we have a
+perfect beam splitter and mirrors, and that there are no filters.
+Then radiance $\rout$ on the path to the detector can be represented
+as
+
+\begin{equation}\label{eq1}
+  \rout(\nu,\delta) = \rin(\nu)(1+\cos 2\pi\nu\delta)/2
+\end{equation}
+
+\noindent
+including a term $\rin(\nu)/2$ that depends only on $\nu$.
+Integrating over frequency, we have
+
+\begin{equation}\label{eq2}
+  \rout(\delta) = \frac{1}{2}\int_{\nu=0}^{\inf}\!\rin(\nu)d\nu + 
+     \frac{1}{2}\int_{\nu=0}^{\inf}\!\rin(\nu)\cos(2\pi\nu\delta)d\nu
+\end{equation}
+\noindent
+This is the continuous interferogram as a function of
+displacement~$\delta$.
+
+We are interested in the following question: if we have a single
+filter $f(\nu)$, does it make a difference if $f$ is on the input 
+or detector leg of the interferometer?  We are interested in the
+following question: if we have a single filter $f(\nu)$, does
+$\rout$ (output radiance, in our diagram) change when $f$ is moved
+from the input to the detector leg of the interferometer?
+We present two related arguments that it does not.  Consider figure
+\ref{intf1} again, and suppose we have $f = f_1(\nu)$ on the input
+leg and nothing on the output leg.  This can be represented as
+
+\begin{equation}\label{eq3}
+  \rout(\nu,\delta) = f(\nu)\rin(\nu)(1+\cos 2\pi\nu\delta)/2
+\end{equation}
+
+Now suppose we move $f$ to the detector leg.  The assumption in the
+literature seems to be that equation (\ref{eq3}) stll holds.  Note
+that filter position does not matter for the $\rin(\nu)/2$ term, or
+for the case when we remove one of the mirrors.
+
+Consider two lines at frequencies $\nu_1$ and $\nu_2$, where $\nu_1$
+is in the passband of $f$ and $\nu_2$ is not.  If $f$ is on the
+detector leg then both $\nu_1$ and $\nu_2$ will participate in
+interference, with radiance before the filter as in equation
+(\ref{eq1}).  After the filter we have $\rout(\nu_2,\delta) = 0$ for
+all $\delta$, with $\rout(\nu_1,\delta)$ unchanged.  If $f$ is on
+the input leg then $\nu_1$ will be as before but $\nu_2$ will not be
+present anywhere downstream, so again we have $\rout(\nu_2,\delta) =
+0$ for all $\delta$.  So the cases are the same.
+
+Note that in this hypothetical situation there is no nonlinearity or
+intermodulation because we are assuming a perfect beamsplitter and
+mirrors, and no Nyquest limit, truncation, or discretization errors
+because we are considering the case for arbitraly real-valued
+$\delta$.  But the argument may not apply as $\nu_1 \rightarrow
+\nu_2$, because at some point $f$ can not separate them.
+
+The case we are interested in practice is where $\nu_1$ and $\nu_2$
+are close and fall on a slope or shoulder of $f$.  But for the
+following argument we don't need to assume that.  So consider the
+case of arbitrary $\nu_1$ and $\nu_2$.  The AC component of equation
+(\ref{eq2}) with $f$ on the input leg is
+
+\begin{equation}\label{eq4}
+  \rout(\delta) = \int_{\nu=0}^{\inf}f(\nu)\cos(2\pi\nu\delta)d\nu
+\end{equation}
+
+\noindent
+For the case where $\nu$ takes on only the two values $\nu_1$ and
+$\nu_2$ this simplifies to
+
+\begin{equation}\label{eq5}
+  \rout(\delta) = f(\nu_1)\cos(2\pi\nu_1\delta) + 
+                  f(\nu_2)\cos(2\pi\nu_2\delta)
+\end{equation}
+
+\noindent
+This is interesting because of the recognizable beat pattern in 
+the interferogram.  Now consider $f$ on the output leg.  On the 
+path before $f$ we have the case of no filter,
+
+\begin{equation}\label{eq6}
+  \rout(\delta) = \cos(2\pi\nu_1\delta) + 
+                  \cos(2\pi\nu_2\delta)
+\end{equation}
+
+\noindent
+And after $f$ we have equation (\ref{eq5}) again.  Since $\nu_1$ and
+$\nu_2$ were chosen arbitrarily we conclude that the property holds
+for all $\nu$ and $\delta$, and that the filter position does not
+matter.
+
+In practice, $f_1$ might be beam splitter efficiency, $f_2$ detector
+responsivity, and $g(\rout(\delta))$ a function taking radiance to
+voltage.  In the case of the {\cris} instrument, $f_2$ could be
+detector responsivity plus optical filter effects.  The particular
+question for {\cris} we were interested in was if it was correct
+to model the effects of a filter on the detector leg with a filter
+on the input.  The answer seems to be yes.
+
+\end{document}
+
+\FloatBarrier
+
+\section{CrIS reference truth }
+
+We can derive an approximation to the UW definition of reference
+truth convolved with responsivity from some plausible assumptions
+about filters and resampling.  Suppose $\rES$ is high resolution
+earth scene radiance, $\rIT$ high resolution black-body radiance
+from the calibration target, $\rho$ instrument responsivity, and $R$
+is resampling from the high resolution to the sensor grid.  Then
+$R\rho\,\rIT \approx \rho\,R\,\rIT$, for ICT looks, but $R\rho\,\rES
+\ne \rho\,R\,\rES$ for earth scenes.  
+
+% The derivation may suggest why the UW definition works better as a
+% specification for some forms of the calibration equation.
 
 \vspace{2mm}
 Calibration of the on-axis optical path of a Michaelson
@@ -49,43 +183,45 @@ target, and space looks, respectively.  All values in equation
 \ref{caldef} are at the ``sensor grid'' $dv = 1/ (2\, \opd)$, where
 $\opd$ is the optical path difference.
 
-Let $\ES \approx F\rho(\rES+\rSP)$, $\IT \approx F\rho(\rIT+\rSP)$,
-and $\SP \approx F\rho\,\rSP$, where $\rES$, $\rIT$, and $\rSP$ are
+Let $\ES \approx R\rho(\rES+\rSP)$, $\IT \approx R\rho(\rIT+\rSP)$,
+and $\SP \approx R\rho\,\rSP$, where $\rES$, $\rIT$, and $\rSP$ are
 high resolution approximations to the true radiances, $\rho$ is
-responsivity, and $F$ is resampling from the high resolution to the
-sensor grid $dv$.  Let $\rITLR = F(\rIT)$.  Substituting this into
+responsivity, and $R$ is resampling from the high resolution to the
+sensor grid $dv$.  Let $\rITLR = R(\rIT)$.  Substituting this into
 (\ref{caldef}) gives
 
 \begin{align}
-  \rcalLR &\approx \rITLR \frac{F\rho(\rES+\rSP) - F\rho\,\rSP}
-                               {F\rho(\rIT+\rSP) - F\rho\,\rSP} \notag \\
-%         &= \rITLR \frac{F\rho\,\rES + F\rho\,\rSP - F\rho\,\rSP}
-%                        {F\rho\,\rIT + F\rho\,\rSP - F\rho\,\rSP} \\
-          &= \rITLR \frac{F\rho\,\rES}
-                         {F\rho\,\rIT} \label{cal1} \\
-          &= \rITLR \frac{F\rho\,\rES}
-                         {\rho\,F\,\rIT} \label{cal2} \\
-          &= \frac{F\rho\,\rES} 
+  \rcalLR &\approx \rITLR \frac{R\rho(\rES+\rSP) - R\rho\,\rSP}
+                               {R\rho(\rIT+\rSP) - R\rho\,\rSP} \notag \\
+%         &= \rITLR \frac{R\rho\,\rES + R\rho\,\rSP - R\rho\,\rSP}
+%                        {R\rho\,\rIT + R\rho\,\rSP - R\rho\,\rSP} \\
+          &= \rITLR \frac{R\rho\,\rES}
+                         {R\rho\,\rIT} \label{cal1} \\
+          &\approx \rITLR \frac{R\rho\,\rES}
+                               {\rho\,R\,\rIT} \label{cal2} \\
+          &= \frac{R\rho\,\rES} 
                   {\rho} = \rresp \label{calUW}
 \end{align} 
 
 \noindent
 We go from equation \ref{cal1} to \ref{cal2} because responsivity
-commutes with resampling for the ICT look, that is, $F\rho\,\rIT =
-\rho\,F\,\rIT$.  The key assumption underlying the UW definition is
-that responsivity does {\em not} commute with resampling for the ES
-look, that is, that $F\rho\,\rES \ne \rho\,F\,\rES$.  Equation
-\ref{calUW} is the UW definition of ``reference truth with
+commutes at least approximately with resampling for the ICT look,
+that is, $R\rho\,\rIT \approx \rho\,R\,\rIT$, but not as well for
+the ES look, that is, that $R\rho\,\rES \ne \rho\,R\,\rES$.
+Equation \ref{calUW} is the UW definition of ``reference truth with
 responsivity''.
 
 \vspace{2mm}
 A more conventional and user-friendly definition of reference truth
 is
 \begin{equation}
-  \rflat =  F \rES
+  \rflat =  R \rES
 \end{equation} 
 
 \noindent
+If we assume $R\rho\,\rES \approx \rho\,R\,\rES$ then we get
+``flat'' reference truth.  [show residual figures]
+
 In practice we find the ``ratio first'' \umbc\ \ccast\ reference
 calibration equation has smaller residuals when compared with
 $\rflat$, while the ``$\SA^{-1}$ first'' \noaa~4 algorithm has
