@@ -37,11 +37,10 @@ for the for the {\cris} instrument.
 \section{Michelson Interferometer}
 
 \begin{figure}
-\begin{center}
+  \centering
   \includegraphics[scale=0.5]{figures/mich_filt2.pdf}
-\caption{Michelson interferometer with filters}
-\label{intf1}
-\end{center}
+  \caption{Michelson interferometer with filters}
+  \label{intf1}
 \end{figure}
 
 Figure \ref{intf1} shows a basic Michelson interferometer.  Let
@@ -147,27 +146,42 @@ question for {\cris} we were interested in was if it was correct
 to model the effects of a filter on the detector leg with a filter
 on the input.  The answer seems to be yes.
 
-\end{document}
-
 \FloatBarrier
 
 \section{CrIS reference truth }
 
-We can derive an approximation to the UW definition of reference
-truth convolved with responsivity from some plausible assumptions
-about filters and resampling.  Suppose $\rES$ is high resolution
-earth scene radiance, $\rIT$ high resolution black-body radiance
-from the calibration target, $\rho$ instrument responsivity, and $R$
-is resampling from the high resolution to the sensor grid.  Then
-$R\rho\,\rIT \approx \rho\,R\,\rIT$, for ICT looks, but $R\rho\,\rES
-\ne \rho\,R\,\rES$ for earth scenes.  
+\begin{figure}
+  \centering
+  \includegraphics[height=8cm]{figures/ES_comm.pdf}
+  \caption{$R\rho\,\rES$ and $\rho\,R\,\rES$}
+  \label{ESdif}
+\end{figure}
 
-% The derivation may suggest why the UW definition works better as a
-% specification for some forms of the calibration equation.
+\begin{figure}
+  \centering
+  \includegraphics[height=8cm]{figures/BB_comm.pdf}
+  \caption{$R\rho\,\rIT$ and $\rho\,R\,\rIT$}
+  \label{BBdif}
+\end{figure}
 
-\vspace{2mm}
-Calibration of the on-axis optical path of a Michaelson
-interferometer can be represented as
+We can a derive reference truth from a basic form of the {\cris}
+calibration equation, with details depending on assumptions about
+instrument behavior.  Suppose $\rES$ is high resolution earth scene
+radiance, $\rIT$ high resolution black-body radiance from the
+internal calibration target, $\rho$ instrument responsivity, and $R$
+resampling from high resolution to the instrument sensor grid.
+
+% $dv = 1/ (2\, \opd)$, where $\opd$ is the maximum optical path
+% difference.
+
+If $r$ is some arbitrary high resolution radiance, we might expect
+that $R\rho\,r \approx \rho R\,r$.  Figure \ref{ESdif} shows the
+difference for a typical earth scene, and figure \ref{BBdif} the
+difference for an {\ict} (black body) look.  Suppose we interpret
+this as $R\rho\,\rIT \approx \rho\,R\,\rIT$ for ICT looks, but
+$R\rho\,\rES \ne \rho\,R\,\rES$ for earth scenes.  Calibration of
+the on-axis optical path of a Michaelson interferometer can be
+represented as
 
 \begin{equation}\label{caldef}
   \rcalLR = \rITLR  \frac{\ES - \SP}{\IT - \SP}
@@ -177,9 +191,9 @@ interferometer can be represented as
 where $\rcalLR$ is calibrated radiances, $\rITLR$ is expected
 radiance from the internal calibration target, and $\ES$, $\IT$, and
 $\SP$ are uncalibrated spectra for earth scene, internal calibration
-target, and space looks, respectively.  All values in equation
-\ref{caldef} are at the ``sensor grid'' $dv = 1/ (2\, \opd)$, where
-$\opd$ is the optical path difference.
+target, and space looks, respectively.  Note that all values in
+equation \ref{caldef} are at the ``sensor grid'' $dv = 1/ (2\,
+\opd)$.
 
 Let $\ES \approx R\rho(\rES+\rSP)$, $\IT \approx R\rho(\rIT+\rSP)$,
 and $\SP \approx R\rho\,\rSP$, where $\rES$, $\rIT$, and $\rSP$ are
@@ -202,12 +216,10 @@ sensor grid $dv$.  Let $\rITLR = R(\rIT)$.  Substituting this into
 \end{align} 
 
 \noindent
-We go from equation \ref{cal1} to \ref{cal2} because responsivity
-commutes at least approximately with resampling for the ICT look,
-that is, $R\rho\,\rIT \approx \rho\,R\,\rIT$, but not as well for
-the ES look, that is, that $R\rho\,\rES \ne \rho\,R\,\rES$.
-Equation \ref{calUW} is the UW definition of ``reference truth with
-responsivity''.
+We go from equation \ref{cal1} to \ref{cal2} because we have assumed
+responsivity commutes at least approximately with resampling for the
+ICT look.   Equation \ref{calUW} is the UW definition of ``reference
+truth with responsivity''.
 
 \vspace{2mm}
 A more conventional and user-friendly definition of reference truth
@@ -218,15 +230,12 @@ is
 
 \noindent
 If we assume $R\rho\,\rES \approx \rho\,R\,\rES$ then we get
-``flat'' reference truth.  [show residual figures]
-
-In practice we find the ``ratio first'' \umbc\ \ccast\ reference
-calibration equation has smaller residuals when compared with
-$\rflat$, while the ``$\SA^{-1}$ first'' \noaa~4 algorithm has
-smaller residuals with $\rresp$.  It seems to us the proper focus
-for calibration algorithm development should be minimizing residuals
-in comparison with $\rflat$.
-
+``flat'' reference truth.  In practice we find the ``ratio first''
+\umbc\ \ccast\ reference calibration equation has smaller residuals
+when compared with $\rflat$, while the ``$\SA^{-1}$ first'' \noaa~4
+algorithm has smaller residuals with $\rresp$.  It seems to us the
+proper focus for calibration algorithm development should be
+minimizing residuals in comparison with~$\rflat$.
 
 \end{document}
 
