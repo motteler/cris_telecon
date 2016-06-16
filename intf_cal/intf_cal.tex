@@ -225,7 +225,7 @@ truth with responsivity''.
 A more conventional and user-friendly definition of reference truth
 is
 \begin{equation}
-  \rflat =  R \rES
+  \rflat =  R \: \rES
 \end{equation} 
 
 \noindent
@@ -236,6 +236,71 @@ when compared with $\rflat$, while the ``$\SA^{-1}$ first'' \noaa~4
 algorithm has smaller residuals with $\rresp$.  It seems to us the
 proper focus for calibration algorithm development should be
 minimizing residuals in comparison with~$\rflat$.
+
+\newpage
+\section{Resampling}
+
+We often use double Fourier interpolation to move from one frequency
+grid to another [4].  For interpolation from a relatively fine grid
+(for example a step of $0.0025$ \wn) to a typical instrument grid
+this gives an $O(n \log n)$ algorithm.  But for two relatively close
+grids we may get better runtimes with a resampling matrix.  Perhaps
+the simplest way to represent such a matrix is with an explicit sinc
+basis,
+
+\begin{equation}\label{res1}
+  R(i,j) = \frac{dv_s}{dv_u}\cdot
+      \sinc(\displaystyle \frac{v_s(j) - v_u(i)}{dv_u})
+\end{equation} 
+
+\noindent
+Here $v_s$ is an $n$--vector of sensor-grid frequencies, $v_u$ an
+$m$--vector of user-grid frequencies, $dv_s$ the sensor-grid
+spacing, and $dv_u$ the user-grid spacing.  $R$~is an $m \times n$
+matrix whose columns correspond to sensor-grid channels and rows to
+user-grid channels.  $R$ is applied as $r_u = R \: r_s$, where $r_s$
+is an $n$--vector of sensor-grid radiances and $r_u$ an $m$--vector
+of user-grid radiances.  One way to see this works is to note that
+an impulse at a sensor grid channel gives a sinc function sampled at
+the user grid, and that a linear transform is uniquely determined by
+its action on an orthogonal basis.  
+
+$R$ defined this was is a close cousin to the {\cris} SA matrix.
+The key difference is that for the SA matrix we have an ILS rather
+than pure sinc basis.  The limit as $dv_u \rightarrow dv_s$ gives
+the identity matrix.  In that case we still have a sinc basis, but
+values for $i\ne j$ are sampled at the zero crossings.
+In practice equation (\ref{res1}) gives good agreement with double
+Fourier interpolation.  For the NOAA 18-20 Jan 2016 test the mean
+difference was less than $0.01$K in the SW and less than $0.002$K
+for the MW and LW {\cris} bands.
+
+% since each column of $R$ is associated with a sinc function whose
+% center is at a sensor-grid frequency, evaluated at the user-grid
+% frequencies.
+
+The NOAA/MIT {\cris} resampling function is
+
+\begin{equation}\label{res2}
+  R(i,j) = \frac{dv_s}{dv_u}\cdot
+     \frac{\sin(\displaystyle \pi \frac{v_s(j) - v_u(i)}{dv_u})}
+  {N \cdot \sin(\displaystyle \pi \frac{v_s(j) - v_u(i)}{N \cdot dv_u})}
+\end{equation} 
+
+\noindent
+For {\cris} the convention seems to be to take $N = n \times d$ for
+a band-dependent decimation factor $d$ of roughly 20.  This also
+gives a good approximation to double Fourier interpolation.  Note
+that $N\cdot \sin(c/N) \approx N \cdot c/N$ for large $N$, so the
+limit as $N\rightarrow\inf$ of $N\cdot \sin(c/N)$ is $c$.  Applying
+this to equation (\ref{res2}) we see the limit as $N\rightarrow\inf$
+gives equation \ref{res1}, and in practice the resulting matrices
+are very close for {\cris} with $N = n \times d$.
+
+% columns correspond to sensor grid channels and the rows to user grid
+% channels.  Each column is associated with a sinc function whose
+% center is at the sensor grid channel frequency, while each row is
+% those sinc functions evaluated at the user grid channel frequencies.
 
 \end{document}
 
