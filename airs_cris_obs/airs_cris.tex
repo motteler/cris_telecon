@@ -19,20 +19,19 @@
 \end{frame}
 %----------- slide --------------------------------------------------%
 \begin{frame}
-\frametitle{introduction}
+\frametitle{topics}
 
 \begin{itemize}
 
-  \item we compare {\airs} and {\cris} sampling and PDFs,
+  \item orbital parameters and secants of zenith angles
 
-  \item look at orbital parameters including secants of zenith
-    angles, describe our test data, define equal area bands and bins
-    and our latitude weighted subsetting, 
+  \item equal area bands, bins, and latitude weighted subsetting
 
-  \item do AIRS and CrIS sampling comparisons, show some
-    long-span AIRS and CrIS PDFs, and
+  \item detailed AIRS and CrIS sampling comparisons
 
-  \item look at sampling variation for {\cris} FOVs 1 and 9.
+  \item 16-day, seasonal, and annual AIRS and CrIS PDFs
+
+  \item sampling variation for {\cris} FOVs 1 and 9.
 
 \end{itemize}
 
@@ -99,7 +98,7 @@
    all tests and PDFs shown here were done with both ascending and
    descending orbital phase
 
- \item tests shown here are with either near-nadir or full scans.
+ \item tests shown here are with either near-nadir or full scans;
    near-nadir for {\airs} is cross-track indices 43--48, and for
    {\cris} fields of regard 15 and 16
 
@@ -157,7 +156,7 @@
     to around 40.  But that is a hack.
 
   \item all subsequent results here, and in particular all the PDFs,
-    are done with the simple cosine heuristic unless otherwise noted
+    are done with the basic cosine subsetting unless otherwise noted
 
 \end{itemize}
 \end{frame}
@@ -260,7 +259,7 @@
 \frametitle{AIRS and CrIS PDFs}
 \begin{itemize}
 
-  \item we create PDFs (or PDF-like unnormalized artifacts) for
+  \item we create PDFs (or obs per $T_b$ bin tabulations) for
     {\airs} and {\cris} as follows
 
 \begin{enumerate}
@@ -342,31 +341,195 @@
 \end{frame} % source plot_tbin.m
 %----------- slide --------------------------------------------------%
 \begin{frame}
-\frametitle{conclusions}
+\frametitle{CrIS FOV comparisons}
 
 \begin{itemize}
 
-  \item with the switch to extended res, we have seen a significant
-    convergence in calibration algorithm performance 
+  \item in these tests we apply our methods for {\airs} and {\cris}
+    comparisons to individual {\cris} {\fov}s
 
-  \item the {\noaa} ``SA-1 first'' algorithm does slightly better
-    when compared with reference truth convolved with responsivity,
-    while the {\ccast} ``ratio first'' algorithm does slightly
-    better when compared with reference truth convolved with a flat
-    passband
+  \item the range of test parameters is expanded; we look at both
+    ascending and descending together and descending alone, and
+    binning at both coarser and finer resolutions
 
-  \item this may be because responsivity cancels out more completely
-    in the ratio-first method
+  \item the next group of tests is from the 20 April 2016 16 day
+    set, near-nadir only (FOR 15 and 16), with latitude weighted
+    subsetting turned on.   
 
-  \item because reference truth convolved with a flat passband is a
-    more conventional and non instrument-specific standard, the
-    ccast algorithm, or some similar ratio-first method, may be
-    preferable
+  \item the time differences are calculated as before, but the
+    72-band obs count stats are for raw obs count, not relative
+    counts 
 
 \end{itemize}
 
 \end{frame}
 %----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 only ascending and descending}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/near_nadir_FOv_1_only.png}
+\end{center}
+\end{frame} % slack/combined sensors 13 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 9 minus FOV 1 ascending and descending}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/near_nadir_FOv_1_minus_9.png}
+\end{center}
+\end{frame} % slack/combined sensors 13 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 descending 48 band}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_1_48_bin_desc.png}
+\end{center}
+\end{frame} % slack/combined sensors 14 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 descending 40 band}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_1_40_bin_desc.png}
+\end{center}
+\end{frame} % slack/combined sensors 14 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 9 minus FOV 1 descending 40 band}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_9_minus_1_40_bin_desc.png}
+\end{center}
+\end{frame} % slack/combined sensors 14 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 72 band raw obs counts, descending}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_1_72_bin_desc_counts.png}
+\end{center}
+\end{frame} % slack/combined sensors 14 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 9 minus FOV 1 72 band raw obs diff, descending}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_9_minus_1_72_bin_desc.png}
+\end{center}
+\end{frame} % slack/combined sensors 14 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{CrIS FOV comparisons}
+
+\begin{itemize}
+
+  \item in the remaining tests we look at double differences for
+    different time spans.  The single differences are FOV 9 minus
+    FOV 1, as above 
+
+  \item the first double difference has the second single difference
+    shifted by 7 days
+
+  \item the second double difference has the second single difference
+    shifted by 16 days, a complete orbital cycle
+
+  \item in theory with all subsetting turned off the double
+    difference for the 16 day shift should be zero, because the
+    orbital cycle repeates
+
+  \item the remaining residual may be due to some mix of varying QC
+    and small actual variation in the obs 
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{double difference for a 7 day shift, no subsetting}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/ddiff_7_day_shift.png}
+\end{center}
+\end{frame} % slack/combined sensors 15 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{double difference for a 16 day shift, no subsetting}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/ddiff_16_day_shift.png}
+\end{center}
+\end{frame} % slack/combined sensors 15 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{double difference for a 7 day shift, latitude subset}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/ddiff_7_day_shift_latsub.png}
+\end{center}
+\end{frame} % slack/combined sensors 15 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{double difference for a 16 day shift, latitude subset}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/ddiff_16_day_shift_latsub.png}
+\end{center}
+\end{frame} % slack/combined sensors 15 July 2017
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{CrIS FOV comparisons}
+
+\begin{itemize}
+
+  \item adding the latitude weighted subsetting increases the time
+    variation and obscures the shifts in the 16 day sampling pattern
+
+  \item the final test is a sort of sanity check on our time
+    sampling; we compare FOV 1 alone with no subsetting for 16 and
+    32 day periods
+
+  \item our time measure is mean bin time minus mean test time
+
+  \item we would expect this measure to be relatively stable over
+    multiples of the 16 day pattern; so for example the means for a
+    32 day test would be similar to the means for a 16 day test
+
+  \item as with the double differences this is only partially true
+
+\end{itemize}
+
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 near-nadir 32 day, no subsetting}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_1_32_day_near_nosub.png}
+\end{center}
+\end{frame}
+%----------- slide --------------------------------------------------%
+\begin{frame}
+\frametitle{FOV 1 near-nadir 32 day minus 16 day, no subsetting}
+\begin{center}
+  \includegraphics[scale=0.5]{slackfigs/FOV_1_32_minus_16_day_nosub.png}
+\end{center}
+\end{frame}
+% %----------- slide --------------------------------------------------%
+% \begin{frame}
+% \frametitle{conclusions}
+% 
+% \begin{itemize}
+% 
+%   \item with the switch to extended res, we have seen a significant
+%     convergence in calibration algorithm performance 
+% 
+%   \item the {\noaa} ``SA-1 first'' algorithm does slightly better
+%     when compared with reference truth convolved with responsivity,
+%     while the {\ccast} ``ratio first'' algorithm does slightly
+%     better when compared with reference truth convolved with a flat
+%     passband
+% 
+%   \item this may be because responsivity cancels out more completely
+%     in the ratio-first method
+% 
+%   \item because reference truth convolved with a flat passband is a
+%     more conventional and non instrument-specific standard, the
+%     ccast algorithm, or some similar ratio-first method, may be
+%     preferable
+% 
+% \end{itemize}
+% \end{frame}
+% %----------- slide --------------------------------------------------%
 
 \end{document}
 
