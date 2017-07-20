@@ -1,0 +1,8 @@
+#
+# ignore some bloated fig files
+#
+
+airs_cos_lat_subset.fig
+cris_cos_lat_subset.fig
+cris_obs_by_lat_band.fig
+
