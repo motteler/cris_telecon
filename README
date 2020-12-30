@@ -1,6 +1,6 @@
 
-CrIS telecon presentations or drafts that are not in the CrIS_FM2
-(TVAC and bench tests) or UMBC ccast repos.
+Older CrIS telecon presentations that are not in the TVAC,
+UMBC CCAST, or other git repos.
 
 nonlin_tests    9 Apr 2014   basic look at nonlinearity
 cris_psinc      8 May 2014   psinc vs sinc for high res
@@ -10,5 +10,5 @@ a2feb16        16 Feb 2016   new UMBC a2 weights
 ccast_noaa1    14 Dec 2014   ccast vs noaa relative tests
 ccast_noaa2    15 Apr 2015   ccast vs noaa rel and abs tests
 ccast_noaa3     5 Aug 2015   ccast vs noaa with responsivity
-ccast_noaa4    in progress   ccast vs noaa cos apodization
+ccast_noaa4    10 May 2016   ccast vs noaa cos apodization
 
