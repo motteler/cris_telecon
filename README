@@ -1,6 +1,6 @@
 
-Older CrIS telecon presentations that are not in the TVAC,
-UMBC CCAST, or other git repos.
+CrIS telecon presentations not in the TVAC, UMBC CCAST, or
+other git repos.
 
 nonlin_tests    9 Apr 2014   basic look at nonlinearity
 cris_psinc      8 May 2014   psinc vs sinc for high res
@@ -11,4 +11,9 @@ ccast_noaa1    14 Dec 2014   ccast vs noaa relative tests
 ccast_noaa2    15 Apr 2015   ccast vs noaa rel and abs tests
 ccast_noaa3     5 Aug 2015   ccast vs noaa with responsivity
 ccast_noaa4    10 May 2016   ccast vs noaa cos apodization
+
+mw_anom_t1     15 May 2019   ccast vs noaa snpp MWIR anomaly
+mw_anom_t2      9 Jun 2019   anomaly w/ sarta ref, unfinished
+
+unfinished drafts: fov5_anom, nonlin_model
 
