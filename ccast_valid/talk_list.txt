@@ -1,0 +1,78 @@
+
+nonlin_tests - CrIS Nonlinearity Comparisons
+
+cris_psinc   - Standard and periodic sinc ILS
+                for the CrIS high resolution tests
+
+ccast_noaa1  - CCAST and NOAA relative FOV response
+
+noaa_rpt     - Summary report of CrIS (J1?) TVAC and full 
+               res processing from fall 2014.
+
+ccast_noaa2  - CCAST and NOAA 17–19 Feb 2015 SDR Algorithm
+               Tests.  Includes obs minus calc.
+
+ccast_noaa3  - New CrIS calibration Algorithm Comparisons.
+               Aug 5 2015.  UMBC implementation of NOAA 4,
+               includes obs minus calc.  5 Aug 2015.
+
+extend_res   - Apodization of CrIS extended interferograms.
+               2 Dec 2015.
+
+a2adjust     - CrIS a2 adjustments from extended resolution
+               data.  17 Feb 2016.  Created quite a stir.
+
+ccast_noaa4  - CrIS extended resolution calibration algorithm
+               comparisons.  10 May 2016.  Test setup similar 
+               to ccast_noaa3.
+
+mw_anom_t1   - A preliminary comparison of CrIS processing 
+               algorithms after the SNPP CrIS MWIR anomaly.
+               15 May 2019.  
+
+
+review notes
+-------------
+
+Need to produce a final validation report and updates READMEs.
+ccast in /home/motteler is the restored main repo, with both old
+data files and up to date pull from github.
+
+last validation report needs to explain the overall situation
+better.
+
+The list above is a prototype README for the ccast/valid directory.
+
+If you just want to look at one report, see ccast_noaa4
+
+A limitation on most of these test is that they were UMBC
+implementations of the CCAST and NOAA 4 algorithms.  However
+there are significant other differences in the processing.
+
+(from slides) all tests are done with periodic sinc wrapping at the
+sensor grid, cosine apodization of the extended res points, the old
+a2 weights, and double Fourier interpolation to the user grid
+
+The mw_anom report has a nice summary of ccast vs NOAA
+differences, and includes actual NOAA data.  Unfortunately it does
+not say anything about the different reference truth.
+
+key thing that's needed is an explanation of reference truth.
+
+"flat" reference truth is reference truth with a sinc basis,
+calculated with kcarta and convolved to instrument specs.
+
+"resp" reference truth is flat reference truth as above,
+convolved with instrument responsivity.
+
+It was somehow decided that reference truth convolved with
+responsivity was acceptable as a benchmark for algorithm
+development.
+
+but this responsivith varies among the CrIS sounders, and as a
+validation test this is like moving the target to match your shot.
+
+The difference is between flat and responsivity reference truth is
+significant, greater than 0.2K in the MW and SW bands.
+
+

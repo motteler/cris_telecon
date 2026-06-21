@@ -1,0 +1,332 @@
+
+Oct 14, 2023
+-------------
+
+motteler 6:40 PM
+Here are some examples of the L1b diffs I was looking at.  This is
+for J1, 5 Oct 2023, UTC 19:03, lat 55 lon -97, 1200 matching obs,
+all FORs.  This is for unapodized radiances; with apodization the
+diffs are smaller but the lower frequency components remain.  Here
+NOAA seems a bit out-of-group vs UMBC and UW.
+
+I've looked at pairwise diffs for J2 and ccast, but for different
+days, since I don't have J2 for 5 Oct.  For those tests the MW J2
+diffs looked a little better.
+
+motteler 6:40 PM
+Maybe all you can say about the 3-way diffs, without some referece
+truth, is that at most one of these can be right.
+
+The high frequency component of the ccast diffs does not necessarily
+mean ccast is in error, since UW and NOAA use similar SA inverse and
+calibration equations.  In earlier validation tests, ccast did
+better with sinc reference truth, while NOAA and UW did better with
+reference truth convolved with instrument responsivity.  But the
+latter is really fudging things.  UMBC ccast does not have the
+polarization or doppler corrections, but those may be subsumed by
+other effects.
+
+chepplew 10:03 PM
+as you state - even with apodization there appears to be some
+calibration difference in parts of the spectrum? - could that be
+polarization diffs?
+
+motteler 11:54 PM
+Probably not.  I think polarization is mainly a factor for the SW.
+I believe UW has the polarization correction, while UMBC does not,
+and yet their SW apodized diff is the smallest.  That's actually the
+case for all 3 bands; looking at the apodized diffs, NOAA is more of
+an outlier.
+
+Nov 3, 2023
+-------------
+
+motteler2:36 PM
+Speaking of NOAA products, I'm surprised no comments about the
+significant differences between the NOAA, UW, and CCAST SDR/L1b
+products I was showing above, on 14 Oct.  0.2K in the MW and SW is
+more than some of the other differences we worry about.  ￼
+
+chepplew 2:52 PM
+I did wonder about calibration differences - you thought not -
+suggests some semi-independent investigation - question is how/what
+
+strow 3:05 PM
+Howard, it could be polarization, largest in the SW.  For SNPP and
+J1 UW and NOAA should agree.  For J2 I’m not sure if NOAA has put in
+polarization yet.  And, we have no polarization at all.  Not sure
+that is it, differences are largest for cold channels.
+
+motteler 3:29 PM
+In general NOAA was the outlier, so I suspect something else is
+going on.
+  
+Jan 31, 2024
+-------------
+
+[figures]
+
+Sample 3-way comparison of NOAA, UW, and UMBC J1 CrIS apodized
+calibrated radiances for one granule, 05-Oct-2023 07:03:14, lat 21.9
+lon 91.8, with 1170 matching obs.  We see NOAA is the outlier here,
+while UMBC and UW are surprisingly close, considering the
+significantly different processing algorithms.  That is reassuring.
+Note this is just one FOV and one granule.  The diffs are a little
+larger for corner FOVs, and a little less for FOV 5.  I've looked at
+several granules and the general pattern is similar.
+
+motteler 1:59 PM
+See slack/cris 14 Oct 2023 for a similar comparison with unapodized
+radiances.  These tell a different story.  The low frequency biases
+are still there, but partly masked by larger high frequency diffs,
+with UMBC the outlier.  That's almost certainly because UW and NOAA
+use an "SA first" algorithm, while UMBC uses a "ratio first" method.
+The latter allows for better cancellation of instrument
+responsivity.  UW and NOAA validated their alogrithms by comparison
+with reference truth convolved with instrument responsivity, while
+UMBC validated with a plain sinc basis.  This was verified in
+calibration presentations, back in 2016.  Thus while UMBC is the
+outlier, it is almost certainly the the better value.
+
+I'm pretty sure these results subsume smaller differences, like from
+the polarization correction.
+
+chepplew 2:13 PM
+If I figure correctly that granule is daytime so ought to include
+warm scenes (and may include cold clouds too) - otherwise could
+there be a dependence on the dynamic range? or could NOAA be doing
+worse for low BT?
+
+motteler 2:16 PM
+I did look at a couple of polar granules, and the overall results
+are similar.  I would think NOAA at least would be interested in
+this.
+
+chepplew 2:17 PM
+I would also be interested in their response - who might you send this to?
+
+motteler 2:20 PM
+Maybe Flavio and Peter Beierle?  I would think it would be
+interesting for one of the CrIS telecons, but who knows.
+
+February 1st, 2024
+-------------------
+
+strow 3:16 PM
+Howard, are the “UW” CrIS SDRs direct from the NASA GESDIS, or did
+you generate them using your UW CCAST variant?
+
+motteler 3:35 PM
+The UW values are from NASA.  I could compare them with my "SA
+first" implementation.  That's of more interest for the unapodized
+comparison.  It should make the diffs there significantly less.
+
+strow 8:59 PM
+the only thing I can think of is polarization differences causing
+this.  Your CCAST does not have polarization.  The NOAA produce does
+now (I think) for J1.  It is possible you are using an old version
+of the NASA data (I think they keep older versions around) before
+the polarization was added.  Can you provide an exact filename (and
+location on GESDIS if possible).  We need to be sure that these
+files “should” indeed have the polarization correction included.
+Your CCAST should not agree with either of these and NOAA/NASA
+should agree (if they both have the polarization corrections).
+
+motteler 9:34 PM
+I don't think it is mainly polarization differences, though that may
+be a factor.  The main things I am seeing are a significant low
+frequency difference (a bias, if you like) between NOAA vs UMBC and
+UW, and a significant high frequency difference between UMBC vs NOAA
+and UW.  The latter is reduced by using the UMBC "SA first"
+algorithm, and largely eliminated with apodization.
+
+The high frequency difference does not mean UMBC is wrong--in fact
+the 2016 validations tests showed UMBC was closer to a sinc
+reference, while UW (and NOAA) had to get there results by
+convolving with instrument responsivity.
+
+I'm trying to make up some better figures, poking around for worse
+case and checking that the NOAA diffs are not just a sampling
+problem.
+
+The NASA/UW data was downloaded last Oct, here's a sample filename:
+SNDR.J1.CRIS.20231006T2054.m06.g210.L1B.std.v02_11.G.231007032846.nc
+
+motteler 9:59 PM
+The figures above, from yesterday, are apodized, and the agreement
+between UW and UMBC (even with UMBC "ratio first") is pretty good,
+while NOAA is the outlier with a significant bias in the MW and SW.
+The UW and UMBC diffs are even smaller with UMBC "SA first" and
+apodization.
+
+Anyway, more plots coming, but not before tomorrow afternoon, as I
+have chemo Friday morning.>
+
+Feb 2, 2024
+------------
+
+[feb 02 figures]
+
+[caption]
+Here is a relatively friendly comparison, with UMBC using an "SA
+first" algorithm similar to NOAA and UW, and Hamming apodization
+applied to all obs.  We see UW and UMBC are quite close, and NOAA is
+clearly the outlier.  I have no idea what's up with the NOAA obs.
+This is a J1 granule for 05-Oct-2023 07:03:14, lat 21.9 lon 91.8,
+with 1170 matching obs.  I chose FOV 4 because the unapodized
+residuals were relatively large.  I don't see how this can be the
+polarization correction, unless perhaps NOAA has it and UW does not,
+which seems unlikely.
+
+[feb 02 figures]
+
+[caption]
+This the unapodized version of the previous test.  We see there are
+significant high frequency differences between UMBC, vs NOAA and UW,
+espeically in the MW, that mostly disappear with apodization.  Note
+the axes are the same for both the apodized and unapodized tests,
+and the SW "x" axis is twice the MW and LW.  I'm not sure what
+causes the high frequency differences, since everyone is still
+running "a4", the SA-first algorithm.  But there are other
+differences in the processing.  Could this be due in part to the UW
+and NOAA doing the polarization correction?
+
+[feb 02 figures]
+
+[caption]
+Finally, here is the previous test with the umbc "c7" algorithm,
+"ratio first" with resampling, vs "SA first" of NOAA and UW, with
+all obs unapodized.  Note the "x" axis is zoomed out slightly, in
+comparison with the previous plots.  While this shows the UMBC
+unapodized c7 results are significantly different from NOAA and UW,
+that does not mean UMBC is wrong.  Earlier validation tests showed
+UMBC matched reference truth with a pure sinc, while to get similar
+residuals UW and NOAA had to use reference truth convolved with
+instrument responsivity.  But that is totally bogus.  We did point
+that out at the time, but it didn't seem to matter.  What's maybe
+worse is that if the UW (and NOAA) data do include a polarization
+correction, any improvement is largely lost in their more basic
+processing problems.
+
+Feb 3, 2024
+------------
+
+strow 1:03 PM
+I sent Joe Taylor the NASA data file (name) you are using to just
+get a check on whether it includes polarization.  He seems to be the
+person implementing everything at the science/code level.  I
+remember talking to him about the SA first stuff about a year or two
+ago, and his responses, while not definitive, indicated he
+understood that UW’s opinion is not necessarily golden, but he kept
+his comments pretty vague and did not want to pursue things
+
+motteler 2:33 PM
+Maybe he doesn't know.  I should ask NOAA, Flavio and Peter Beierle
+might know, at least what they are doing.  Do the NOAA apodized
+diffs (vs UMBC and UW) look like the polarization correction?  If
+NOAA has it and UW does not, that's basically good news--it means
+nothing is too far out of whack, at least for apodized radiances.
+
+It's not so much a problem of SA vs ratio first as it is convolving
+reference truth with responsivity, to make SA-first look better.
+There are valid reasons for using SA-first, for one thing it can
+work a little better a the band edges, unless you are very careful
+with the processing filters.  But that seems to be a tradeoff with
+overall accuracy.
+
+strow 4:35 PM
+Joe got back to me, the version of NASA L1b we are using does NOT
+have polarization.  V3 has it, but not sure if that is at GESDIS yet
+or not, Joe hasn’t gotten back to me.
+
+I think what we are getting from NOAA does have the same
+polarization correction, NOAA just implements it on the fly, NASA
+doesn’t like to make algorithm changes in the middle of a version.
+
+motteler 4:44 PM
+I sent a message to Flavio and Peter, haven't heard back from them
+yet.  But if NOAA has polarization and UW does not, that explains
+what we see in the apodized plots, above.  It's relatively good
+news, it looks like UW and UMBC are in good agreement, at least when
+we use the SA-first algorithm and compare apodized radiances.
+That's a valuable sanity check, given all the other difference in
+the UW and UMBC processing.
+
+strow 8:07 PM
+I just looked, there is also a JPSS-1 CrIS Level 1B Full spectral
+Resolution V3 (in addition to V2).  It is stored at:
+https://sounder.gesdisc.eosdis.nasa.gov/data/JPSS1_Sounder_Level1/SNDRJ1CrISL1B.3/
+
+motteler 11:03 PM
+OK, an apodized comparison brings NOAA and UW's V3 into good
+agreement, leaving UMBC as the outlier.  So NOAA also has the
+polarization correction.  The effect is a little larger than I'd
+expected, but still on the same order as the high-frequency
+differences I've been looking at, which are due to other processing
+differences.  It's handy to have UW both with and without the
+polarization correction.
+
+Feb 7, 2024
+------------
+
+strow 3:09 PM
+Howard, it actually would be nice to see how much the lack of
+polarization in the NASA L1b V2 contributes to the offset we applied
+for CHIRP between AIRS and SNPP CrIS, and J01 CrIS.  Given that you
+match them essentially perfectly with no polarization, how about
+doing 1 day of data for each CrIS to see the magnitude of the
+polarization differences and esp. how static they are.  In the
+future we will likely do a new version of CHIRP using NASA V3, so
+this needs to be taken into account for changes to our offsets.  I
+think one day is enough to get a very good feel for how the
+polarization varies with scene…
+
+motteler 3:52 PM
+So, just compare the UW V2 and V3 products?  That's relatively easy
+since they have the same granule structure.  I have to grab a full
+day of V3, though, I just got one granule for a first look.
+
+strow 7:02 PM
+Yup
+
+Feb 9, 2024
+------------
+
+[feb09 figures]
+
+[caption]
+UW v3 minus v2 for 5 Oct 2023, for Hamming apodized radiances.
+Stats are done with brightness temp.  std is the std of the
+differences, not the difference of separate v2 and v3 stds.  We see
+v3 has a significant cold bias, relative to v2.
+
+Feb 12, 2024
+-------------
+
+motteler 1:51 PM
+Having UW data with and without a polarization correction helps in
+sorting things out, I can compare v3 with NOAA and v2 with UMBC.
+
+Comparing apodized radiances, UMBC SA-first is in good agreement
+with UW v2.  UMBC ratio-first is also in generally good agreement
+with UW v2, although there is a small bias, on the order of 0.02K,
+in the LW corner FOVs, and 0.01K in the MW corner FOVs.  Comparing
+unapodized radiances, UMBC ratio-first shows significant HF diffs
+from UW v2.  These are greater for corner FOVs, for and MW FOV 5.
+There is also a small LW & MW bias, as we saw in the apodized
+ratio-first comparison.  UMBC SA-first shows some HF diffs, though
+less than for ratio-first, and no bias.
+
+None of this is really new info.  While the unapodized differences
+are significant, earlier validation tests showed UMBC matched
+reference truth with a pure sinc, while to get similar unapodized
+residuals UW and NOAA had to use reference truth convolved with
+instrument responsivity.  To do anything further it seems to me I'd
+need to add a polarization correction to ccast, and do some new
+validation comparison tests with expected radiances.
+
+[discussion continues on Feb 16, but no more validation tests]
+
+it would have been easier to add the polarization correction than to
+continue to explain that we don't have it.
+
